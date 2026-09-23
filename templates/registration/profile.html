@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+
+{% block meta_title %}{{user.first_name}}{% endblock %}
+
+{% block main %}
+
+  <h1>hello {{user.username}}</h1>
+
+  <a href="{% url 'books:book-list' %}">Books</a>
+
+{% endblock %}
