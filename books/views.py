@@ -3,7 +3,7 @@ from .models import Book
 
 
 def book_list(request):
-    search = request.GET.get("search")
+    search = request.GET.get("s")
 
     if search:
         books = Book.objects.filter(
@@ -22,7 +22,9 @@ def book_list(request):
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
     
-    return render(request, "books/book-detail.html", {"book": book})
+    is_borrowed = book.loans.filter(user=request.user).exists()
+    
+    return render(request, "books/book-detail.html", {"book": book, "is_borrowed": is_borrowed})
 
 
 
