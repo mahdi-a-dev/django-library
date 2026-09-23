@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+
+{% block meta_title %}{{loan.book.title}}{% endblock %}
+
+{% block main %}
+
+    <h1>hello</h1>
+    <h2>{{ loan.book.title }}</h2>
+    <h2>{{ loan.borrowed_at }}</h2>
+    <h2>{{ laon.due_date }}</h2>
+
+{% endblock %}

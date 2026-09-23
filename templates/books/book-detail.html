@@ -7,8 +7,22 @@
 <div>
     <h3>title: {{ book.title }}</h3>
     <h4>author: {{ book.author.name }}</h4>
-    <h4>categorys: {{ book.category.name }}</h4>
+    <h4>categorys: {{ book.categorys_for_book }}</h4>
 </div><br>
+
+<div>
+    {% if user.is_authenticated %}
+        {% if is_borrowed %}
+            <a href="{% url 'loans:return' book_pk=book.pk %}">return book</a>
+        {% else %}
+            <a href="{% url 'loans:borrow' book_pk=book.pk %}">borrow this book</a>
+        {% endif %}
+    {% else %}
+    you cant borrow this book , you're not login
+    <a href="{% url 'accounts:login' %}">login</a>
+    <a href="{% url 'accounts:register' %}">sign up</a>
+    {% endif %}
+</div>
     
 
 {% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+
+{% block meta_title %}{{loan.user.username}}{% endblock %}
+
+{% block main %}
+
+  {% for loan in loans %}
+    <h2><a href="{% url 'loans:loan-detail' pk=loan.pk %}">{{loan.book.title}}</a></h2>
+  {% empty%}
+    there is no book here.
+  {% endfor %}
+
+{% endblock %}

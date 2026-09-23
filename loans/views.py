@@ -58,7 +58,7 @@ def return_book(request, book_pk):
 
     return render(
         request,
-        "loan/confirm-return-book.html",
+        "loans/confirm-return-book.html",
         {"book": book, "remaning_date": remaning_date}
     )
 

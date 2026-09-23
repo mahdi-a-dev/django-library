@@ -17,6 +17,7 @@ class Category(models.Model):
         return self.name
 
 
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
     
@@ -31,6 +32,10 @@ class Book(models.Model):
     def __str__(self):
         return self.title
     
+    
+    def categorys_for_book(self):
+        return ", ".join([cat.name for cat in self.category.all() ])
+    categorys_for_book.short_description = "category"
     
     class Meta:
         ordering = ["-created_at"]

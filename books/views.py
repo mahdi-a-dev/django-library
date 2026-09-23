@@ -12,11 +12,11 @@ def book_list(request):
     else:
         books = Book.objects.all()
 
-    return render(
-        request,
-        "books/book-list.html",
-        {"books": books},
-    )
+    context = {
+        "books": books
+    }
+    
+    return render(request, "books/book-list.html", context)
 
 
 def book_detail(request, pk):
@@ -24,7 +24,12 @@ def book_detail(request, pk):
     
     is_borrowed = book.loans.filter(user=request.user).exists()
     
-    return render(request, "books/book-detail.html", {"book": book, "is_borrowed": is_borrowed})
+    context = {
+        "book": book,
+        "is_borrowed": is_borrowed
+        }
+    
+    return render(request, "books/book-detail.html", context)
 
 
 

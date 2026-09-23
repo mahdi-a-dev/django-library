@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block meta_title %}return {{book.title}}{% endblock %}
+
+{% block main %}
+
+  <h3>confirm return book </h3>
+  <h4>{{ book.title }}</h4>
+  <h4>{{ book.author }}</h4>
+  <p>
+    remaning date: {{ remaning_date|date:"Y/m/d H:i"}}
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button>submit</button>
+  </form>
+
+{% endblock %}
