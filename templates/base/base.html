@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block meta_title %}{% endblock %}</title>
+</head>
+<body>
+    <h1><a href="{% url 'books:book-list' %}">Book Lists</a></h1>
+    <form method="get">
+        <label for="site-search">Search the site:</label>
+        <input type="search" name="search" />
+
+        <button>Search</button>
+    </form> 
+    <hr>
+    {% block main %}
+
+    {% endblock %}
+    <hr>
+</body>
+</html>
