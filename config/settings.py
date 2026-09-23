@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'books.apps.BooksConfig',
+    'accounts.apps.AccountsConfig',
     'loans.apps.LoansConfig',
     'django.contrib.admin',
     'django.contrib.auth',
