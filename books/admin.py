@@ -4,6 +4,9 @@ from .models import Book, Author, Category
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ["title", "author", "categorys_for_book", "total_copies", "created_at", "updated_at"]
+    list_filter = ["created_at", "author"]
+    search_fields = ["title", "author"]
+    date_hierarchy = "created_at"
 
 
 class AuthorAdmin(admin.ModelAdmin):

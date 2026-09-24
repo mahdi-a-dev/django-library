@@ -1,15 +1,24 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Book
-from django.db.models import Q
+from django.core.paginator import Paginator
 
 
-def book_list(request):
-    search = request.GET.get("s")
 
-    if search:
-        books = Book.objects.filter( Q(title__icontains=search) | Q(author__name__icontains=search) )
-    else:
-        books = Book.objects.all()
+def book_list(request, page=1):
+    """
+    Display a pagianted list of book.
+    
+    Args: 
+        request: a HttpRequest object.
+        page: The page number to dispaly. default to 1.
+        
+    Returns:
+        HttpRespones: The rendered book list page.
+    """
+    
+    books_list = Book.objects.all()
+    paginator = Paginator(books_list, 4)
+    books = paginator.get_page(page)
 
     context = {
         "books": books
@@ -19,9 +28,21 @@ def book_list(request):
 
 
 def book_detail(request, pk):
-    book = get_object_or_404(Book, pk=pk)
+    """
+    Display a details of a specific book.
     
-    is_borrowed = book.loans.filter(user=request.user).exists()
+    Args: 
+        request: a HttpRequest object.
+        page: The page number to dispaly. default to 1.
+        
+    Returns:
+        HttpRespones: The rendered book list page.
+    """
+    book = get_object_or_404(Book, pk=pk)
+    if request.user.is_authenticated:
+        is_borrowed = book.loans.filter(user=request.user, returned_at__isnull=True).exists()
+    else:
+        is_borrowed = False
     
     context = {
         "book": book,
