@@ -1,14 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Book
+from django.db.models import Q
 
 
 def book_list(request):
     search = request.GET.get("s")
 
     if search:
-        books = Book.objects.filter(
-            title__icontains=search
-        )
+        books = Book.objects.filter( Q(title__icontains=search) | Q(author__name__icontains=search) )
     else:
         books = Book.objects.all()
 

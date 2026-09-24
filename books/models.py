@@ -33,9 +33,16 @@ class Book(models.Model):
         return self.title
     
     
+    def available_copies(self):
+        active_loans = self.loans.filter(returned_at__isnull=True).count()
+        
+        return self.total_copies - active_loans
+    
+    
     def categorys_for_book(self):
         return ", ".join([cat.name for cat in self.category.all() ])
     categorys_for_book.short_description = "category"
+    
     
     class Meta:
         ordering = ["-created_at"]
