@@ -31,9 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # my apps
     'books.apps.BooksConfig',
-    'accounts.apps.AccountsConfig',
     'loans.apps.LoansConfig',
+    'accounts.apps.AccountsConfig',
+    'reminders.apps.RemindersConfig',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,6 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_R00T = "static"
+STATICFILES_DIRS = ["static"]
 
 
 # Email
