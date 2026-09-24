@@ -1,9 +1,24 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from .forms import LoginForm, CreateForm
+from django.contrib.auth.decorators import login_required
 
 
 def register(request):
+    """
+    Register a new user account.
+    
+    On successful registration , the new user
+    is automatically logged in and redirected to the profile page.
+    
+    Args:
+        request: The HTTP request object.
+    
+    Returns:
+        HttpRespones: The rendered registration page.
+        HttpResponesRedirect: Redirect to the profie page after successful registration.
+    """
+    
     if request.method == "POST":
         form = CreateForm(request.POST)
         
@@ -23,14 +38,33 @@ def register(request):
     return render(request, "registration/register.html", context)
 
 
+@login_required
 def profile(request):
-    if request.user.is_authenticated:
-        return render(request, "registration/profile.html")
-    return redirect("accounts:login")
+    """
+    Display the profile page for the authenticated user.
+    
+    Args:
+        request: The HTTP request object.
+            
+    Returns:
+        HttpRespones: The rendered profile page.
+    """
+    
+    return render(request, "registration/profile.html")
 
 
 
 def login_view(request):
+    """
+    Authenticate a user and log them into the application.
+    
+    Args:
+        request: The HTTP request object.
+            
+    Returns:
+        HttpResponesRedirect: Redirect to th book list after successful authentication.
+    """
+    
     if request.method == "POST":
         form = LoginForm(
             request,
@@ -38,10 +72,15 @@ def login_view(request):
         )
         
         if form.is_valid():
-            login(request, form.get_user())
+            user = form.get_user()
+            login(request, user)
+            
+            # redirect admin user to admin panel
+            if user.is_staff:
+                return redirect("/admin/")
             
             return redirect("books:book-list")
-        
+  
     else:
         form = LoginForm(request)
     
@@ -53,6 +92,15 @@ def login_view(request):
 
 
 def logout_view(request):
+    """
+    Logout the current user and redirect to the book list.
+    
+    Args:
+        request: The HTTP request object.
+            
+    Returns:
+        HttpResponesRedirect: Redirect to th book list
+    """
     logout(request)
     return redirect("books:book-list")
 

@@ -33,13 +33,16 @@ def book_detail(request, pk):
     
     Args: 
         request: a HttpRequest object.
-        page: The page number to dispaly. default to 1.
+        pk: The primary key of the  requested book.
         
     Returns:
         HttpRespones: The rendered book list page.
+        Http404: If the requested book does not exist.
     """
     book = get_object_or_404(Book, pk=pk)
+    
     if request.user.is_authenticated:
+        # Check whether the user currently has an active loan
         is_borrowed = book.loans.filter(user=request.user, returned_at__isnull=True).exists()
     else:
         is_borrowed = False
