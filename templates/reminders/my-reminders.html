@@ -1,40 +1,12 @@
 {% extends 'base/base.html' %}
 
 {% block title %}
-  Profile | {{user.username}}
+    {{user.username}} | Reminders
 {% endblock %}
 
-{% block profile_active %}active{% endblock %}
+{% block my_reminders_active %}active{% endblock %}
 
 {% block content %}
-    <div class="profile-page">
-
-        <!-- Profile -->
-        <section class="profile-card">
-
-            <div class="profile-avatar">
-                {{ user.username|first|upper }}
-            </div>
-
-            <div class="profile-info">
-
-                <span class="profile-label">
-                    USER PROFILE
-                </span>
-
-                <h1>
-                    {{ user.username }}
-                </h1>
-
-                <p>
-                    <a href="{% url 'loans:my-loans' %}">My Book</a>
-                    <span>↪</span>
-                </p>
-
-                
-            </div>
-
-        </section>
 
         <!-- Reminders -->
         <section class="reminders-card">
@@ -51,12 +23,9 @@
                     </h2>
                 </div>
 
-                {% if reminders %}
-                    <a class="reminder-count" href="{% url 'reminders:my-reminders' %}">
-                        show all
-                        <span>↪</span>
-                    </a>
-                {% endif %}
+                <span class="reminder-count">
+                    {{ reminders|length }} reminders
+                </span>
 
             </div>
 
@@ -99,10 +68,5 @@
             </div>
 
         </section>
-
-        <br>
-
-    </div>
-
 
 {% endblock %}

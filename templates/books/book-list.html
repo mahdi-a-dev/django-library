@@ -1,19 +1,142 @@
 {% extends 'base/base.html' %}
 
-{% block meta_title %}Books{% endblock %}
+{% block title %}
+    Home | Library
+{% endblock %}
 
-{% block main %}
-  
+{% block home_active %}active{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="hero">
+
+    <div class="hero-text">
+
+        <p class="eyebrow">
+            LIBRARY SYSTEM
+        </p>
+
+        <h1>
+            Welcome to Library!
+        </h1>
+
+        <p>
+            Here you can find your favorite books,
+            borrow them, and always keep track of your reading.
+        </p>
+
+    </div>
+
+
+    <div class="hero-illustration">
+
+        <div class="stacked-books">
+
+            <div class="book book-one"></div>
+            <div class="book book-two"></div>
+            <div class="book book-three"></div>
+            <div class="book book-four"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Section Header -->
+<section class="section-header">
+
+    <div>
+        <span class="section-number">{{books.number}}</span>
+
+        <h2>
+            Books
+        </h2>
+    </div>
+
+    
+        {% if books.has_next %}
+            <a href="{% url 'books:book-list' books.next_page_number %}" class="view-all">
+                next page
+                <span>&raquo;</span>
+            </a>
+        {% endif %}
+        {% if books.has_previous %}
+            <a href="{% url 'books:book-list' books.previous_page_number %}" class="view-all">
+                <span>&laquo;</span>
+                previous page
+            </a>
+        {% endif %}
+ 
+
+</section>
+
+
+<!-- Books -->
+<section class="books-grid">
+
+
     {% for book in books %}
-        <div>
-            <h3><a href="{% url 'books:book-detail' pk=book.pk %}">title: {{ book.title }}</a></h3>
-            <h4>author: {{ book.author.name }}</h4>
-            <h4>categorys: {{ book.category.name }}</h4>
-            <h4>total copies: {{ book.total_copies }}</h4>
-            <h4>created_at: {{ book.created_at }}</h4>
-        </div><br>
-    {% empty%}
-        <h2>There is no book </h2>
+    <article class="book-card">
+
+        <div class="book-cover cover-black">
+            <strong>
+                <br>
+                {{ book.title }}
+            </strong>
+
+            <span class="cover-author">
+                {{ book.author }}
+            </span>
+        </div>
+
+
+        <div class="book-content">
+
+            <h3>
+                {{ book.title }}
+            </h3>
+
+            <p class="book-author">
+                {{ book.author }}
+            </p>
+
+            <div class="book-tags">
+                {% for cat in book.categorys_for_book %}
+                <span>{{ cat.title }}</span>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+        <div class="card-footer">
+            {% if book.available > 0 %}
+                <span class="availability available">
+                    <i></i>
+                    available
+                </span>
+            {% else %}
+                <span class="availability available">
+                    <i></i>
+                    out of stock
+                </span>
+            {% endif %}
+
+            <a href="{% url 'books:book-detail' pk=book.pk %}" class="small-button">
+                Details
+                <span>↪</span>
+            </a>
+
+        </div>
+
+    </article>
+    {% empty %}
+        <p>There is no book here</p>
     {% endfor %}
+
+</section>
 
 {% endblock %}

@@ -1,15 +1,17 @@
 {% extends 'base/base.html' %}
 
-{% block meta_title %}borrow {{book.title}}{% endblock %}
+{% block title %}
+  Borrow | {{book.title}}
+{% endblock %}
 
-{% block main %}
+{% block content %}
 
   {% if not error %}
     <h3>confirm borrow book </h3>
     <h4>{{ book.title }}</h4>
     <h4>{{ book.author }}</h4>
     <p>
-      due date: {{ due_date|date:"Y/m/d H:i"}}
+      due date: {{ due_date|date:"Y/m/d"}}
     </p>
 
     <form method="post">

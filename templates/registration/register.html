@@ -1,13 +1,150 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
-{% block meta_title %}register{% endblock %}
+{% block title %}
+    Sign Up | Library
+{% endblock %}
 
-{% block main %}
+{% block content %}
 
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">login</button>
-    </form>
+    <section class="auth-page">
+
+        <div class="auth-card">
+
+            <div class="auth-header">
+
+                <span class="auth-number">
+                    REGISTER
+                </span>
+
+                <h1>
+                    Create an account
+                </h1>
+
+                <p>
+                    Create your account to use the library's services.
+                </p>
+
+            </div>
+
+
+            <form method="post" class="auth-form">
+
+                {% csrf_token %}
+
+
+                {% if form.non_field_errors %}
+                    <div class="form-errors">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+
+                <!-- Username -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.username.id_for_label }}">
+                        Username
+                    </label>
+
+                    {{ form.username }}
+
+                    {% if form.username.errors %}
+                        <div class="field-error">
+                            {{ form.username.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.password1.id_for_label }}">
+                        Password
+                    </label>
+
+                    {{ form.password1 }}
+
+                    {% if form.password1.errors %}
+                        <div class="field-error">
+                            {{ form.password1.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.password2.id_for_label }}">
+                        Confirm Password
+                    </label>
+
+                    {{ form.password2 }}
+
+                    {% if form.password2.errors %}
+                        <div class="field-error">
+                            {{ form.password2.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <button type="submit" class="auth-submit">
+                    Sign up
+                </button>
+
+            </form>
+
+
+            <div class="auth-footer">
+
+                <span>
+                    Have you already created an account?
+                </span>
+
+                <a href="{% url 'accounts:login' %}">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Side decoration -->
+
+        <div class="auth-decoration">
+
+            <span class="decoration-number">
+                LIBRARY
+            </span>
+
+            <div class="decoration-line"></div>
+
+            <h2>
+                Every book,
+                <br>
+                a new world.
+            </h2>
+
+            <p>
+                Create your account and manage your favorite books. 
+            </p>
+
+            <div class="decoration-symbol">
+                +
+            </div>
+
+        </div>
+
+    </section>
 
 {% endblock %}

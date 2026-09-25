@@ -1,13 +1,89 @@
 {% extends 'base/base.html' %}
 
-{% block meta_title %}{{loan.user.username}}{% endblock %}
+{% block title %}
+  {% if user.get_full_name %} 
+    {{ user.first_name }}
+{% else %}
+    {{ user.username }}
+{% endif %} |  My books
+{% endblock %}
 
-{% block main %}
+{% block my_books_active %}active{% endblock %}
 
-  {% for loan in loans %}
-    <h2><a href="{% url 'loans:loan-detail' pk=loan.pk %}">{{loan.book.title}}</a></h2>
-  {% empty%}
-    there is no book here.
-  {% endfor %}
+{% block content %}
+
+         <!-- Books -->
+        <section class="reminders-card">
+
+            <div class="reminders-header">
+
+                <div>
+                    <span class="section-label">
+                        BOOK
+                    </span>
+
+                    <h2>
+                        My Book
+                    </h2>
+                </div>
+
+                <span class="reminder-count">
+                    {{ loans|length }} books
+                </span>
+
+            </div>
+
+
+            <div class="reminders-list">
+
+                {% for loan in loans %}
+
+                    <div class="reminder-item">
+
+                        <div class="reminder-content">
+
+                            <h3>
+                                {{ loan.book.title }}
+                            </h3>
+
+
+                            <p>
+                                {{ loan.book.author }}
+                            </p>
+
+                            <p>
+                                {{ loan.book.desctiption|truncatewords:"20" }}
+                            </p>
+
+                            <span class="reminder-date">
+                                Borrowed at: {{ loan.borrowed_at|date:"Y/m/d" }}
+                            </span>
+                            <br>
+                            <span class="reminder-date">
+                                Due date: {{ loan.due_date|date:"Y/m/d" }}
+                            </span>
+
+                        </div>
+
+
+                        <a class="reminder-button" href="{% url 'loans:loan-detail' pk=loan.pk %}">
+                            Details
+                        </a>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty-reminders">
+                        <p>
+                            There are currently no attendance records for you.
+                        </p>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
 
 {% endblock %}

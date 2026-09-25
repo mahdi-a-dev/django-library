@@ -1,28 +1,81 @@
 {% extends 'base/base.html' %}
 
-{% block meta_title %}{{ book.title }}{% endblock %}
+{% block title %}
+    Book | {{ book.title }}
+{% endblock %}
 
-{% block main %}
+{% block content %}
 
-<div>
-    <h3>title: {{ book.title }}</h3>
-    <h4>author: {{ book.author.name }}</h4>
-    <h4>categorys: {{ book.categorys_for_book }}</h4>
-</div><br>
+    <article class="book-card">
 
-<div>
-    {% if user.is_authenticated %}
-        {% if is_borrowed %}
-            <a href="{% url 'loans:return' book_pk=book.pk %}">return book</a>
-        {% else %}
-            <a href="{% url 'loans:borrow' book_pk=book.pk %}">borrow this book</a>
-        {% endif %}
-    {% else %}
-    you cant borrow this book , you're not login
-    <a href="{% url 'accounts:login' %}">login</a>
-    <a href="{% url 'accounts:register' %}">sign up</a>
-    {% endif %}
-</div>
-    
+        <div class="book-cover cover-black">
+            <span class="cover-small">
+            </span>
 
+            <strong>
+                <br>
+                {{ book.title }}
+            </strong>
+
+            <span class="cover-author">
+                {{ book.author }}
+            </span>
+        </div>
+
+
+        <div class="book-content">
+
+            <h3>
+                {{ book.title }}
+            </h3>
+
+            <p class="book-author">
+                {{ book.author }}
+            </p>
+
+            <p class="book-author" style="font-size: 14px;">
+                {% if not book.description %}
+                    No description
+                {% else %}
+                    {{ book.description }}
+                {% endif %}
+            </p>
+
+            <div class="book-tags">
+                {% for cat in book.categorys_for_book %}
+                <span>{{ cat.title }}</span>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+        <div class="card-footer">
+            {% if book.available > 0 %}
+            <span class="availability available">
+                <i></i>
+                available
+            </span>
+            {% else %}
+            <span class="availability available">
+                <i></i>
+                out of stock
+            </span>
+            {% endif %}
+            
+            {% if book.available > 0 %}
+                {% if not is_borrowed %}
+                <a href="{% url 'loans:borrow' book_pk=book.pk %}" class="small-button">
+                    Borrow
+                </a>
+                {% else %}
+                <a href="{% url 'loans:return' book_pk=book.pk %}" class="small-button">
+                    Return
+                </a>
+                {% endif %}
+            {% endif %}
+
+        </div>
+
+    </article>
 {% endblock %}

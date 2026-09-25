@@ -1,22 +1,83 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block meta_title %}{% endblock %}</title>
+
+    <title>
+        {% block title %}Library{% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+
 <body>
-    <h1><a href="{% url 'books:book-list' %}">Book Lists</a></h1>
-    <form method="get" action="{% url 'books:book-list' %}">
-        <label for="site-search">Search the site:</label>
-        <input type="search" name="s" />
 
-        <button>Search</button>
-    </form> 
-    <hr>
-    {% block main %}
+<header class="site-header">
+    <div class="header-inner">
 
+        <!-- Logo -->
+        <a href="/" class="logo">
+            <span class="logo-icon">▢</span>
+            <span>Library</span>
+        </a>
+
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <a href="{% url 'books:book-list' %}" class="{% block home_active %}{% endblock %}" >Home</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'accounts:profile' %}" class="{% block profile_active %}{% endblock %}">Profile</a>
+                <a href="{% url 'loans:my-loans' %}" class="{% block my_books_active %}{% endblock %}">My Books</a>
+            {% endif %}
+        </nav>
+
+        <!-- User -->
+        <div class="header-user">
+
+            <div class="user-info">
+                <span class="user-icon">●</span>
+
+                <span>
+                    Welcome 
+                    {% if user.is_authenticated %}
+                        {{ user.username }}
+                    {% else %}
+                        Guest
+                    {% endif %}
+                </span>
+            </div>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'accounts:logout' %}" class="logout-link">
+                    Logout
+                    <span>↪</span>
+                </a>
+                {% else %}
+                <a href="{% url 'accounts:login' %}" class="logout-link">
+                    Login
+                </a>
+                <a href="{% url 'accounts:register' %}" class="logout-link">
+                    Sign up
+                    <span>↪</span>
+                </a>
+            {% endif %}
+
+        </div>
+
+    </div>
+</header>
+
+
+<main class="page-container">
+
+    {% block content %}
     {% endblock %}
-    <hr>
+
+</main>
+
+
 </body>
 </html>
+
