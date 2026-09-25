@@ -1,0 +1,1469 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+    --black: #171717;
+    --dark-gray: #3f3f3f;
+    --gray: #777;
+    --border: #d6d3cc;
+
+    --paper: #f7f5ef;
+    --white: #ffffff;
+
+    --shadow: 5px 5px 0 var(--black);
+
+    --radius: 4px;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    background: var(--paper);
+    color: var(--black);
+
+    font-family:
+        Vazirmatn,
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.site-header {
+    padding: 24px 0 0;
+}
+
+
+.header-inner {
+    width: min(1200px, calc(100% - 40px));
+    min-height: 68px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: var(--white);
+
+    border: 1px solid var(--black);
+
+    box-shadow: var(--shadow);
+
+    padding: 0 22px;
+
+    position: relative;
+    z-index: 10;
+}
+
+
+/* Logo */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 22px;
+    font-weight: 900;
+}
+
+
+.logo-icon {
+    width: 36px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid var(--black);
+
+    font-size: 15px;
+}
+
+
+/* Navigation */
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+
+.main-nav a {
+    font-size: 15px;
+
+    position: relative;
+
+    transition: 0.2s;
+}
+
+
+.main-nav a::after {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    bottom: -8px;
+
+    width: 0;
+    height: 2px;
+
+    background: var(--black);
+
+    transition: width 0.2s ease;
+}
+
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    width: 100%;
+}
+
+
+/* User */
+
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 14px;
+}
+
+
+.user-icon {
+    width: 29px;
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--black);
+
+    border-radius: 50%;
+
+    font-size: 10px;
+}
+
+
+.logout-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding-right: 20px;
+
+    border-right: 1px solid var(--border);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page-container {
+    width: min(1200px, calc(100% - 40px));
+
+    margin: 40px auto 60px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 310px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: var(--white);
+
+    border: 1px solid var(--black);
+
+    box-shadow: var(--shadow);
+
+    padding: 50px 65px;
+
+    margin-bottom: 65px;
+}
+
+
+.hero-text {
+    max-width: 610px;
+}
+
+
+.eyebrow {
+    font-size: 12px;
+    letter-spacing: 3px;
+
+    color: var(--gray);
+
+    margin-bottom: 12px;
+}
+
+
+.hero h1 {
+    font-size: 42px;
+    line-height: 1.3;
+
+    margin-bottom: 18px;
+
+    font-weight: 900;
+}
+
+
+.hero p:not(.eyebrow) {
+    color: var(--dark-gray);
+
+    font-size: 16px;
+
+    max-width: 560px;
+}
+
+
+/* Hero buttons */
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+
+    margin-top: 28px;
+}
+
+
+.button {
+    padding: 11px 22px;
+
+    border: 1px solid var(--black);
+
+    font-size: 14px;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+.button-dark {
+    background: var(--black);
+    color: white;
+}
+
+
+.button-outline {
+    background: white;
+}
+
+
+.button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0 var(--black);
+}
+
+
+/* =========================================================
+   HERO ILLUSTRATION
+========================================================= */
+
+.hero-illustration {
+    width: 350px;
+    height: 210px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.stacked-books {
+    width: 260px;
+    height: 150px;
+
+    position: relative;
+}
+
+
+.book {
+    height: 38px;
+
+    position: absolute;
+
+    left: 15%;
+    right: 5%;
+
+    border: 2px solid var(--black);
+
+    background: white;
+
+    box-shadow: 4px 4px 0 var(--black);
+}
+
+
+.book-one {
+    bottom: 0;
+
+    transform: rotate(-5deg);
+}
+
+
+.book-two {
+    bottom: 34px;
+
+    transform: rotate(3deg);
+}
+
+
+.book-three {
+    bottom: 68px;
+
+    transform: rotate(-2deg);
+}
+
+
+.book-four {
+    bottom: 102px;
+
+    transform: rotate(5deg);
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.section-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    margin-bottom: 26px;
+}
+
+
+.section-header > div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.section-number {
+    color: var(--gray);
+
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+
+.section-header h2 {
+    font-size: 28px;
+}
+
+
+.view-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 14px;
+
+    border-bottom: 1px solid var(--black);
+
+    padding-bottom: 3px;
+}
+
+
+/* =========================================================
+   BOOK GRID
+========================================================= */
+
+.books-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 24px;
+}
+
+
+/* =========================================================
+   BOOK CARD
+========================================================= */
+
+.book-card {
+    background: var(--white);
+
+    border: 1px solid var(--black);
+
+    box-shadow: 5px 5px 0 var(--black);
+
+    padding: 16px;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+.book-card:hover {
+    transform: translate(-3px, -3px);
+
+    box-shadow: 8px 8px 0 var(--black);
+}
+
+
+/* =========================================================
+   BOOK COVER
+========================================================= */
+
+.book-cover {
+    width: 100%;
+    height: 240px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    position: relative;
+
+    border: 1px solid var(--black);
+
+    margin-bottom: 18px;
+
+    overflow: hidden;
+
+    text-align: center;
+
+    box-shadow: 4px 4px 0 #cfcfcf;
+}
+
+
+.cover-black {
+    background: #151515;
+    color: white;
+}
+
+
+.cover-gray {
+    background: #454545;
+    color: white;
+}
+
+
+.cover-dark {
+    background: #222;
+    color: white;
+}
+
+
+.cover-light {
+    background: #ecebe5;
+    color: #222;
+}
+
+
+.book-cover strong {
+    font-family: Georgia, serif;
+
+    font-size: 28px;
+
+    line-height: 1.15;
+}
+
+
+.cover-small {
+    font-size: 12px;
+}
+
+
+.cover-author {
+    margin-top: 20px;
+
+    font-family: Georgia, serif;
+
+    font-size: 12px;
+}
+
+
+.cover-top {
+    position: absolute;
+
+    top: 18px;
+
+    font-size: 8px;
+}
+
+
+.cover-subtitle {
+    margin-top: 15px;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   BOOK CONTENT
+========================================================= */
+
+.book-content h3 {
+    font-size: 19px;
+
+    margin-bottom: 3px;
+}
+
+
+.book-author {
+    color: var(--gray);
+
+    font-size: 13px;
+
+    margin-bottom: 14px;
+}
+
+
+
+/* Tags */
+
+.book-tags {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+}
+
+
+.book-tags span {
+    padding: 2px 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 999px;
+
+    color: var(--dark-gray);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   CARD FOOTER
+========================================================= */
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid var(--border);
+
+    margin-top: 18px;
+    padding-top: 14px;
+}
+
+
+.availability {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 12px;
+}
+
+
+.availability i {
+    width: 7px;
+    height: 7px;
+
+    display: inline-block;
+
+    background: #6b7b68;
+
+    border-radius: 50%;
+}
+
+
+.small-button {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    background: var(--black);
+    color: white;
+
+    padding: 7px 13px;
+
+    font-size: 11px;
+
+    border: 1px solid var(--black);
+}
+
+
+.small-button:hover {
+    background: white;
+    color: var(--black);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.site-footer {
+    width: min(1200px, calc(100% - 40px));
+
+    margin: 0 auto 35px;
+
+    min-height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 22px;
+
+    background: var(--white);
+
+    border: 1px solid var(--black);
+
+    box-shadow: var(--shadow);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .main-nav {
+        gap: 18px;
+    }
+
+
+    .header-user {
+        display: none;
+    }
+
+
+    .hero {
+        padding: 40px;
+    }
+
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+
+    .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .header-inner {
+        width: calc(100% - 24px);
+
+        padding: 0 14px;
+    }
+
+
+    .main-nav {
+        display: none;
+    }
+
+
+    .page-container {
+        width: calc(100% - 24px);
+
+        margin-top: 25px;
+    }
+
+
+    .hero {
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+
+        padding: 30px 25px;
+
+        text-align: center;
+    }
+
+
+    .hero-illustration {
+        width: 100%;
+
+        margin-bottom: 30px;
+    }
+
+
+    .hero-actions {
+        justify-content: center;
+
+        flex-wrap: wrap;
+    }
+
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+
+    .section-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    .books-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .site-footer {
+        width: calc(100% - 24px);
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 5px;
+
+        padding: 12px;
+    }
+}
+
+
+
+/* =========================================================
+   AUTH / REGISTER
+========================================================= */
+
+.auth-page {
+    min-height: 620px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 0.75fr;
+
+    gap: 30px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   AUTH CARD
+========================================================= */
+
+.auth-card {
+    background: var(--white);
+
+    border: 1px solid var(--black);
+
+    box-shadow: 6px 6px 0 var(--black);
+
+    padding: 45px 50px;
+}
+
+
+/* Header */
+
+.auth-header {
+    border-bottom: 1px solid var(--border);
+
+    padding-bottom: 25px;
+
+    margin-bottom: 30px;
+}
+
+
+.auth-number {
+    display: block;
+
+    color: var(--gray);
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+
+.auth-header h1 {
+    font-size: 32px;
+
+    font-weight: 900;
+
+    margin-bottom: 8px;
+}
+
+
+.auth-header p {
+    color: var(--gray);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.auth-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 21px;
+}
+
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.form-group label {
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* Django generated inputs */
+
+.form-group input {
+    width: 100%;
+
+    height: 48px;
+
+    padding: 0 14px;
+
+    background: #fff;
+
+    color: var(--black);
+
+    border: 1px solid var(--black);
+
+    border-radius: 0;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    transition:
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+}
+
+
+.form-group input:focus {
+    box-shadow: 4px 4px 0 var(--black);
+
+    transform: translate(-2px, -2px);
+}
+
+
+/* Errors */
+
+.form-errors,
+.field-error {
+    color: #8c1d1d;
+
+    font-size: 12px;
+}
+
+
+.form-errors {
+    border: 1px solid #8c1d1d;
+
+    padding: 12px;
+
+    background: #fff8f8;
+}
+
+
+.field-error ul,
+.form-errors ul {
+    margin: 4px 0 0;
+
+    padding-right: 18px;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.auth-submit {
+    width: 100%;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 6px;
+
+    background: var(--black);
+
+    color: white;
+
+    border: 1px solid var(--black);
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+.auth-submit:hover {
+    transform: translate(-3px, -3px);
+
+    box-shadow: 5px 5px 0 var(--black);
+}
+
+
+.auth-submit span {
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   AUTH FOOTER
+========================================================= */
+
+.auth-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    border-top: 1px solid var(--border);
+
+    margin-top: 28px;
+
+    padding-top: 22px;
+
+    color: var(--gray);
+
+    font-size: 13px;
+}
+
+
+.auth-footer a {
+    color: var(--black);
+
+    font-weight: 700;
+
+    border-bottom: 1px solid var(--black);
+
+    padding-bottom: 1px;
+}
+
+
+/* =========================================================
+   DECORATION PANEL
+========================================================= */
+
+.auth-decoration {
+    position: relative;
+
+    overflow: hidden;
+
+    min-height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    background: var(--black);
+
+    color: white;
+
+    border: 1px solid var(--black);
+
+    padding: 50px;
+}
+
+
+.decoration-number {
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color: #aaa;
+
+    margin-bottom: 35px;
+}
+
+
+.decoration-line {
+    width: 45px;
+
+    height: 2px;
+
+    background: white;
+
+    margin-bottom: 30px;
+}
+
+
+.auth-decoration h2 {
+    font-family: Georgia, serif;
+
+    font-size: 42px;
+
+    line-height: 1.3;
+
+    font-weight: normal;
+
+    margin-bottom: 25px;
+}
+
+
+.auth-decoration p {
+    max-width: 320px;
+
+    color: #bdbdbd;
+
+    font-size: 14px;
+
+    line-height: 2;
+}
+
+
+.decoration-symbol {
+    position: absolute;
+
+    left: -25px;
+
+    bottom: -45px;
+
+    font-family: Georgia, serif;
+
+    font-size: 220px;
+
+    line-height: 1;
+
+    color: #252525;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .auth-page {
+        grid-template-columns: 1fr;
+    }
+
+
+    .auth-decoration {
+        min-height: 280px;
+
+        order: -1;
+
+        padding: 35px;
+    }
+
+
+    .auth-decoration h2 {
+        font-size: 32px;
+    }
+
+
+    .auth-card {
+        padding: 35px 25px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .auth-page {
+        min-height: auto;
+    }
+
+
+    .auth-decoration {
+        min-height: 230px;
+    }
+
+
+    .auth-decoration h2 {
+        font-size: 28px;
+    }
+
+
+    .auth-header h1 {
+        font-size: 27px;
+    }
+}
+
+
+
+
+
+/* =========================================================
+   PROFILE CARD
+========================================================= */
+
+.profile-card {
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+
+    background: var(--white);
+
+    border: 1px solid var(--black);
+
+    box-shadow: 5px 5px 0 var(--black);
+
+    padding: 30px 35px;
+
+    margin-bottom: 45px;
+}
+
+
+.profile-avatar {
+    width: 75px;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--black);
+
+    border-radius: 50%;
+
+    background: var(--black);
+
+    color: white;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+.profile-label,
+.section-label {
+    display: block;
+
+    color: var(--gray);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 5px;
+}
+
+
+.profile-info h1 {
+    font-size: 27px;
+
+    margin-bottom: 2px;
+}
+
+
+.profile-info p {
+    color: var(--gray);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   REMINDERS
+========================================================= */
+
+.reminders-card {
+    background: var(--white);
+
+    border: 1px solid var(--black);
+
+    box-shadow: 5px 5px 0 var(--black);
+
+    padding: 35px;
+}
+
+
+.reminders-header {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    padding-bottom: 22px;
+
+    margin-bottom: 5px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.reminders-header h2 {
+    font-size: 25px;
+
+    margin: 0;
+}
+
+
+.reminder-count {
+    color: var(--gray);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   REMINDER ITEM
+========================================================= */
+
+.reminder-item {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 20px 5px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.reminder-item:last-child {
+    border-bottom: none;
+}
+
+
+.reminder-content {
+    min-width: 0;
+}
+
+
+.reminder-content h3 {
+    font-size: 16px;
+
+    margin-bottom: 3px;
+}
+
+
+.reminder-content p {
+    color: var(--gray);
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+}
+
+
+.reminder-date {
+    color: var(--dark-gray);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   REMINDER BUTTON
+========================================================= */
+
+.reminder-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    flex-shrink: 0;
+
+    padding: 7px 13px;
+
+    border: 1px solid var(--black);
+
+    background: white;
+
+    font-size: 11px;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease;
+}
+
+
+.reminder-button:hover {
+    background: var(--black);
+
+    color: white;
+
+    transform: translate(-2px, -2px);
+
+    box-shadow: 3px 3px 0 var(--black);
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-reminders {
+    padding: 40px 10px;
+
+    text-align: center;
+
+    color: var(--gray);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .profile-page {
+        margin: 30px auto;
+    }
+
+
+    .profile-card {
+        padding: 25px;
+
+        gap: 18px;
+    }
+
+
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+
+        font-size: 20px;
+    }
+
+
+    .profile-info h1 {
+        font-size: 22px;
+    }
+
+
+    .reminders-card {
+        padding: 25px 20px;
+    }
+
+
+    .reminders-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+
+    .reminder-item {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .reminder-button {
+        align-self: flex-start;
+    }
+}
+
+
