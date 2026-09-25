@@ -2,75 +2,99 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Loan
 from django.utils import timezone
 from books.models import Book
+from reminders.services import create_returned_reminders, create_borrowed_reminders
+from django.contrib.auth.decorators import login_required
 
 
-
+@login_required
 def my_loans(request):
-    if request.user.is_authenticated:
-        loans = Loan.objects.filter(user=request.user, returned_at__isnull=True)
-        return render(request, "loans/my-loans.html", {"loans": loans})
+    """
+    Display a  list of user's loan.
+    User have to be authenticated to see this view.
     
-    return redirect("accounts:login")
+    Args: 
+        request: a HttpRequest object.
 
+        
+    Returns:
+        HttpRespones: The rendered loan list page.
+    """
+    loans = Loan.objects.filter(user=request.user, returned_at__isnull=True)
+    
+    context = {
+        "loans": loans
+        }
+        
+    return render(request, "loans/my-loans.html", context)
+    
 
+@login_required
 def loan_detail(request, pk):
-    if request.user.is_authenticated:
-        loan = get_object_or_404(Loan, pk=pk, user=request.user)
-        return render(request, "loans/loan-detail.html", {"loan": loan})
-    return redirect("accounts:login")
+    """
+    Display a details of a user loan.
+    User have to be authenticated to see this view.
+       
+    Args: 
+        request: a HttpRequest object.
+        pk: The primary key of the requested loan.
+           
+    Returns:
+        HttpRespones: The rendered book list page.
+        Http404: If the requested loan does not exist.
+        
+    """
+    loan = get_object_or_404(Loan, pk=pk, user=request.user)
+    return render(request, "loans/loan-detail.html", {"loan": loan})
 
 
+@login_required
 def borrow_book(request, book_pk):
-    if request.user.is_authenticated:
-        book = get_object_or_404(Book, pk=book_pk)
-        due_date = Loan.calculate_due_date()
+    book = get_object_or_404(Book, pk=book_pk)
+
+    if book.available() < 1:
+        error = "This book is not available."
+        return render(request, "loans/confirm-borrow-book.html", {"book": book, "error": error})
         
-        if book.available_copies() <= 0:
-                error = "this book is not available."
-                return render(request, "loans/confirm-borrow-book.html", {"book": book, "error": error})
-        
-        active_loan = Loan.objects.filter(
+    active_loan = Loan.objects.filter(
+        user=request.user,
+        book=book,
+        returned_at__isnull=True
+        ).exists()
+    
+    if active_loan:
+        error = "You borrowed this book already."
+        return render(request, "loans/confirm-borrow-book.html", {"book": book, "error": error})
+    
+    if request.method == "POST":
+        loan = Loan.objects.create(
             user=request.user,
             book=book,
-            returned_at__isnull=True
-            ).exists()
-        
-        if active_loan:
-            error = "you borrowed this book already."
-            return render(request, "loans/confirm-borrow-book.html", {"book": book, "error": error})
-
-        
-        if request.method == "POST":
-            Loan.objects.create(
-                user=request.user,
-                book=book,
-                due_date=due_date
-            )
-            
-            return redirect("loans:my-loans")
-
-        return render(request, "loans/confirm-borrow-book.html", {"book": book, "due_date": due_date})
-    
-    return redirect("accounts:login")
-
-
-
-def return_book(request, book_pk):
-    if request.user.is_authenticated:
-        book = get_object_or_404(Book, pk=book_pk)
-        
-        loan = get_object_or_404(Loan, user=request.user, book=book)
-        
-        remaning_date = timezone.now() - loan.borrowed_at
-        if request.method == "POST":
-            loan.returned_at = timezone.now()
-            loan.save()
-            return redirect("accounts:profile")
-
-        return render(
-            request,
-            "loans/confirm-return-book.html",
-            {"book": book, "remaning_date": remaning_date}
         )
-    return redirect("accounts:login")
+        
+        create_borrowed_reminders(loan)
+        
+        return redirect("loans:my-loans")
+
+    return render(request, "loans/confirm-borrow-book.html", {"book": book})
+    
+
+@login_required
+def return_book(request, book_pk):
+    book = get_object_or_404(Book, pk=book_pk)
+    loan = get_object_or_404(Loan, user=request.user, book=book, returned_at__isnull=True)
+    
+
+    if request.method == "POST":
+        loan.returned_at = timezone.now()
+        loan.save()
+        
+        create_returned_reminders(loan)
+        
+        return redirect("accounts:profile")
+   
+    return render(
+                request,
+                "loans/confirm-return-book.html",
+                {"book": book}
+            )
 
