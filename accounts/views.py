@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from .forms import LoginForm, CreateForm
 from django.contrib.auth.decorators import login_required
+from reminders.models import get_user_reminders
 
 
 def register(request):
@@ -50,7 +51,13 @@ def profile(request):
         HttpRespones: The rendered profile page.
     """
     
-    return render(request, "registration/profile.html")
+    reminders = get_user_reminders(request.user)[:3]
+    
+    context = {
+        "reminders": reminders
+    }
+    
+    return render(request, "registration/profile.html", context)
 
 
 
