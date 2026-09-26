@@ -1,0 +1,80 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+    My Reminders | {{reminder.title}}
+{% endblock %}
+
+{% block content %}
+
+    <section class="reminder-detail-page">
+
+        <div class="reminder-detail-card">
+
+            <span class="reminder-detail-label">
+                REMINDER / DETAILS
+            </span>
+
+
+            <div class="reminder-detail-header">
+
+                <h1>
+                    {{ reminder.title }}
+                </h1>
+
+                <span class="reminder-detail-type">
+                    {{ reminder.reminder_type }}
+                </span>
+
+            </div>
+
+
+            <div class="reminder-detail-content">
+
+                <p>
+                    {{ reminder.message }}
+                </p>
+
+            </div>
+
+
+            <div class="reminder-detail-meta">
+
+                <div>
+                    <span>Date</span>
+                    <strong>
+                        {{ reminder.created_at|date:"Y M d - H:i" }}
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>Status</span>
+
+                    {% if reminder.is_read %}
+                        <strong>Read</strong>
+                    {% else %}
+                        <strong>Unread</strong>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="reminder-detail-footer">
+
+                <a
+                    href="{% url 'accounts:profile' %}"
+                    class="reminder-back-button"
+                >
+                    My Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Library | Reports
+{% endblock %}
+
+{% block reports_active %}active{% endblock %}
+
+{% block content %}
+
+<section class="reports-page">
+
+    <!-- Header -->
+    <div class="profile-card">
+        <div class="profile-info">
+            <span class="profile-label">ADMIN / REPORTS</span>
+            <h1>System Report</h1>
+            <p>Summary of the library status and reminder activity</p>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="reports-stats">
+
+        <div class="stat-card">
+            <span class="stat-label">Books</span>
+            <strong>{{ book_count }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">Users</span>
+            <strong>{{ user_count }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">Loans</span>
+            <strong>{{ loan_count }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">Active Loans</span>
+            <strong>{{ loan_active_count }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">Reminders</span>
+            <strong>{{ reminder_count }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">Unread Reminders</span>
+            <strong>{{ unread_reminder_count }}</strong>
+        </div>
+
+    </div>
+
+
+    <!-- Reminder Report -->
+    <div class="reports-table-card">
+
+        <div class="reports-table-header">
+            <div>
+                <span class="reports-label">REMINDER / LOG</span>
+                <h2>Reminders Report</h2>
+            </div>
+
+            <span class="reports-count">
+                {{ reminder_count }} Item
+            </span>
+        </div>
+
+
+        <div class="reports-table-wrapper">
+
+            <table class="reports-table">
+
+                <thead>
+                    <tr>
+                        <th>Reminder</th>
+                        <th>User</th>
+                        <th>Book</th>
+                        <th>Loan</th>
+                        <th>Due Date</th>
+                        <th>Return Date</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for reminder in reminders %}
+                    <tr>
+
+                        <td class="reminder-title">
+                            {{ reminder.title }}
+                        </td>
+
+                        <td>
+                            {{ reminder.loan.user.username }}
+                        </td>
+
+                        <td class="book-title">
+                            {{ reminder.loan.book.title|truncatechars:"30" }}
+                        </td>
+
+                        <td>
+                            {{ reminder.loan.borrowed_at|date:"Y M D" }}
+                        </td>
+
+                        <td>
+                            {{ reminder.loan.due_date|date:"Y M D" }}
+                        </td>
+
+                        <td>
+                            {% if reminder.loan.returned_at %}
+                                {{ reminder.loan.returned_at|date:"Y M D" }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <span class="report-type">
+                                {{ reminder.reminder_type }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {% if reminder.is_read %}
+                                <span class="report-status read">
+                                    read
+                                </span>
+                            {% else %}
+                                <span class="report-status unread">
+                                    unread
+                                </span>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="8" class="empty-reports">
+                            There are no reminders to display.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

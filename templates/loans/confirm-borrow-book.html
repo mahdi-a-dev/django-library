@@ -1,26 +1,64 @@
-{% extends 'base/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
-  Borrow | {{book.title}}
+  {{book.title}} | Borrow
 {% endblock %}
 
 {% block content %}
 
-  {% if not error %}
-    <h3>confirm borrow book </h3>
-    <h4>{{ book.title }}</h4>
-    <h4>{{ book.author }}</h4>
-    <p>
-      due date: {{ due_date|date:"Y/m/d"}}
-    </p>
+  <section class="confirm-page">
 
-    <form method="post">
-      {% csrf_token %}
-      <button>submit</button>
-    </form>
-  {% else %}
-    {{error}}
-  
-  {% endif %}
+      <div class="confirm-card">
+        {% if not error %}
+          <span class="confirm-label">
+              LOAN / CONFIRMATION
+          </span>
+
+          <h1>
+              Confirm Borrowing Book
+          </h1>
+
+          <p class="confirm-message">
+              You can borrow this book for 14 days. 
+          </p>
+
+
+          <div class="confirm-book">
+
+              <span>Book</span>
+
+              <strong>
+                  {{ book.title }}
+              </strong>
+
+          </div>
+
+
+          <div class="confirm-actions">
+
+              <form method="post">
+                  {% csrf_token %}
+
+                  <button type="submit" class="confirm-button">
+                      Confirm
+                  </button>
+              </form>
+
+
+              <a href="{% url 'books:book-list' %}"
+                class="cancel-button">
+                  Cancel
+              </a>
+
+          </div>
+        {% else %}
+          <p class="confirm-message">
+            {{error}}
+          </p>
+        {% endif %}
+
+      </div>
+
+  </section>
 
 {% endblock %}

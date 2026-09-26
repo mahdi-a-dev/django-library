@@ -23,13 +23,17 @@
             <span class="logo-icon">▢</span>
             <span>Library</span>
         </a>
-
+  
+    
         <!-- Navigation -->
         <nav class="main-nav">
             <a href="{% url 'books:book-list' %}" class="{% block home_active %}{% endblock %}" >Home</a>
             {% if user.is_authenticated %}
-                <a href="{% url 'accounts:profile' %}" class="{% block profile_active %}{% endblock %}">Profile</a>
-                <a href="{% url 'loans:my-loans' %}" class="{% block my_books_active %}{% endblock %}">My Books</a>
+                {% if user.is_staff %}
+                <a href="{% url 'reports:reports' %}" class="{% block reports_active %}{% endblock %}">Reports</a>
+                {% endif %}
+            <a href="{% url 'accounts:profile' %}" class="{% block profile_active %}{% endblock %}">Profile</a>
+            <a href="{% url 'loans:my-loans' %}" class="{% block my_books_active %}{% endblock %}">My Books</a>
             {% endif %}
         </nav>
 

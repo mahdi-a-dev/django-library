@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
     {{user.username}} | Reminders
@@ -43,13 +43,29 @@
                             </h3>
 
                             <span class="reminder-date">
+                                Book: {{reminder.loan.book.title}}
+                            </span>
+                            <br>
+                            <span class="reminder-date">
                                 {{ reminder.created_at|date:"Y M D - H:i" }}
+                            </span>
+                            <br>
+
+                            <span class="reminder-date">
+                                Status: 
+                                {% if reminder.is_read %}
+                                    Read
+                                {% else %}
+                                    Unread
+                                {% endif %}
                             </span>
 
                         </div>
 
+                        
 
-                        <a class="reminder-button" href="{% url 'reminders:detail' pk=reminder.pk %}">
+                        
+                        <a class="reminder-button" href="{% url 'reminders:reminder-detail' pk=reminder.pk %}">
                             Details
                         </a>
 
