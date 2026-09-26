@@ -38,4 +38,8 @@ class Reminder(models.Model):
     
     def __str__(self):
         return f"{self.get_reminder_type_display()} - {self.loan}"
+    
+    
+    class Meta:
+        ordering = ["-created_at"]
 

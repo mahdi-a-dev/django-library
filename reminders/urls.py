@@ -7,6 +7,6 @@ urlpatterns = [
     # ex: reminders/my_reminders
     path("my_reminders/", views.my_reminders, name="my-reminders"),
     # ex: reminders/1
-    path("<int:pk>/", views.detail, name="detail")
+    path("<int:pk>/", views.reminder_detail, name="reminder-detail")
 ]
 

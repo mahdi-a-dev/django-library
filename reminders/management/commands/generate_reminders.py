@@ -4,8 +4,17 @@ from reminders.services import create_upcoming_reminders, create_overdue_reminde
 
 class Command(BaseCommand):
  
- 
     def handle(self, *args, **options):
+        """
+        Generate upcoming and overdue reminders.
+        
+        This command is intended to be executed periodically,
+        for example cron.
+        """
         create_upcoming_reminders()
         create_overdue_reminders()
+        
+        self.stdout.write(
+                self.style.SUCCESS("Generate Reminders Command Worked Successfully.")
+            )
         

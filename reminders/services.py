@@ -5,16 +5,32 @@ from .models import Reminder
 
 
 def create_borrowed_reminders(loan):
-       
-    Reminder.objects.get_or_create(
+    """
+    create a reminder when book is borrowed.
+    If a borrowed remider already exists for this loan,
+    no new reminder will be created.
+    """
+    reminder_exists = Reminder.objects.filter(
         loan=loan,
-        reminder_type="b",
-        title="Borrowed",
-        message=f"The book {loan.book.title} was borrowed.",
-        )
+        reminder_type="b"
+    ).exists()
+    
+    if not reminder_exists:
+        Reminder.objects.create(
+            loan=loan,
+            reminder_type="b",
+            title="Borrowed",
+            message=f"The book '{loan.book.title}' was borrowed.",
+            )
 
 
 def create_upcoming_reminders():
+    """
+    Create reminders for loans whose due date is four days from today.
+    Only active loans are considered An existing reminder for the same loan and
+    reminder type will not create again.
+    """
+
     today = timezone.localdate()
     target_date = today + timedelta(days=4)
     
@@ -24,15 +40,26 @@ def create_upcoming_reminders():
     )
     
     for loan in loans:
-        Reminder.objects.get_or_create(
+        reminder_exists = Reminder.objects.filter(
             loan=loan,
-            reminder_type="b",
-            title="Approaching deadline",
-            message=f"Three days remain until the due date for the book {loan.book.title}.",
-        )
+            reminder_type="u"
+        ).exists()
+        
+        if not reminder_exists:
+            Reminder.objects.create(
+                loan=loan,
+                reminder_type="u",
+                title="Approaching deadline",
+                message=f"Three days remain until the due date for the book '{loan.book.title}'.",
+            )
 
 
 def create_overdue_reminders():
+    """
+    Create reminders for active loans whose due date pas passed.
+    Only loans that hove not been returned are considered.
+    """
+    
     today = timezone.localdate()
     
     loans = Loan.objects.filter(
@@ -41,19 +68,37 @@ def create_overdue_reminders():
     )
     
     for loan in loans:
-        Reminder.objects.get_or_create(
+    
+        reminder_exists = Reminder.objects.filter(
             loan=loan,
-            reminder_type="o",
-            title="overdue",
-            message=f"The due date for the book {loan.book.title} has passed.",
-            )
+            reminder_type="o"
+        ).exists()
+        
+        if not reminder_exists:
+            Reminder.objects.create(
+                loan=loan,
+                reminder_type="o",
+                title="overdue",
+                message=f"The due date for the book '{loan.book.title}' has passed.",
+                )
 
 
 def create_returned_reminders(loan):
-  
-    Reminder.objects.get_or_create(
+    """
+    Create reminders that borrowed book is returned.
+    If a returned reminder already exists for this loan,
+    no duplicate reminder will be created.
+    """
+    
+    reminder_exists = Reminder.objects.filter(
         loan=loan,
-        reminder_type="r",
-        title="Returned",
-        message=f"The book {loan.book.title} was returned..",
-        )
+        reminder_type="r"
+    ).exists()
+        
+    if not reminder_exists:
+        Reminder.objects.create(
+            loan=loan,
+            reminder_type="r",
+            title="Returned",
+            message=f"The book '{loan.book.title}' was returned..",
+            )
