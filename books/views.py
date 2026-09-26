@@ -36,7 +36,7 @@ def book_detail(request, pk):
         pk: The primary key of the  requested book.
         
     Returns:
-        HttpRespones: The rendered book list page.
+        HttpRespones: The rendered book detail page.
         Http404: If the requested book does not exist.
     """
     book = get_object_or_404(Book, pk=pk)

@@ -60,7 +60,7 @@ def borrow_book(request, book_pk):
         book_pk: The primary key of the requested book.
            
     Returns:
-        HttpRespones: The rendered loan return page.
+        HttpRespones: The rendered confirm borrow page.
         Http404: If the requested loan does not exist.
         
     """
@@ -104,7 +104,7 @@ def return_book(request, book_pk):
         book_pk: The primary key of the requested book.
            
     Returns:
-        HttpRespones: The rendered loan return page.
+        HttpRespones: The rendered confirm loan return page.
         Http404: If the requested loan does not exist.
         
     """

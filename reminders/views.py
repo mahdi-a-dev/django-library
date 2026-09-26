@@ -13,7 +13,7 @@ def my_reminders(request):
         request: a HttpRequest object.
             
     Returns:
-        HttpRespones: The rendered user profile page with reminders list.
+        HttpRespones: The rendered user reminder page.
     """
     reminders = get_user_reminders(request.user)
     
@@ -41,7 +41,7 @@ def reminder_detail(request, pk):
         pk: reminder primary key
             
     Returns:
-        HttpRespones: The rendered user profile page with reminders list.
+        HttpRespones: The rendered user reminder datails page.
     """
     reminder = get_object_or_404(Reminder, pk=pk)
     

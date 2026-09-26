@@ -69,6 +69,7 @@ def login_view(request):
         request: The HTTP request object.
             
     Returns:
+        HttpRespones: The rendered login page.
         HttpResponesRedirect: Redirect to th book list after successful authentication.
     """
     
