@@ -6,8 +6,6 @@ app_name = "loans"
 urlpatterns = [
     # ex loans/my_loans
     path("my_loans/", views.my_loans, name="my-loans"),
-    # ex: my_loans/page/2
-    path("my_loans/page/<int:page>", views.my_loans, name="my-loans"),
     # loans/1
     path("<int:pk>/", views.loan_detail, name="loan-detail"),
     # ex: loan/borrow/2
