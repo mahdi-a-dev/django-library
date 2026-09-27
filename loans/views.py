@@ -86,6 +86,8 @@ def borrow_book(request, book_pk):
             book=book,
         )
         
+        # this create a reminder for borrowed loan
+        # Its comes from Reminder.services
         create_borrowed_reminders(loan)
         
         return redirect("loans:my-loans")
