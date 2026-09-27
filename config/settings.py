@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # my apps
     'books.apps.BooksConfig',
     'loans.apps.LoansConfig',
+    'reports.apps.ReportsConfig',
     'accounts.apps.AccountsConfig',
     'reminders.apps.RemindersConfig',
     

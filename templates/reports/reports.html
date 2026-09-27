@@ -60,7 +60,7 @@
 
         <div class="reports-table-header">
             <div>
-                <span class="reports-label">REMINDER / LOG</span>
+                <span class="profile-label">REMINDER / LOG</span>
                 <h2>Reminders Report</h2>
             </div>
 
@@ -79,10 +79,9 @@
                         <th>Reminder</th>
                         <th>User</th>
                         <th>Book</th>
-                        <th>Loan</th>
+                        <th>Loan Date</th>
                         <th>Due Date</th>
                         <th>Return Date</th>
-                        <th>Type</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -118,12 +117,6 @@
                             {% else %}
                                 —
                             {% endif %}
-                        </td>
-
-                        <td>
-                            <span class="report-type">
-                                {{ reminder.reminder_type }}
-                            </span>
                         </td>
 
                         <td>
