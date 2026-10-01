@@ -68,11 +68,12 @@
                 <a href="{% url 'loans:borrow' book_pk=book.pk %}" class="small-button">
                     Borrow
                 </a>
-                {% else %}
+                {% endif %}
+            {% endif %}
+            {% if is_borrowed %}
                 <a href="{% url 'loans:return' book_pk=book.pk %}" class="small-button">
                     Return
                 </a>
-                {% endif %}
             {% endif %}
 
         </div>
