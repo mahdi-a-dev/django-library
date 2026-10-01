@@ -56,15 +56,14 @@
         </h2>
     </div>
 
-    
         {% if books.has_next %}
-            <a href="{% url 'books:book-list' books.next_page_number %}" class="view-all">
+            <a href="?page={{ books.next_page_number }}" class="view-all">
                 next page
                 <span>&raquo;</span>
             </a>
         {% endif %}
         {% if books.has_previous %}
-            <a href="{% url 'books:book-list' books.previous_page_number %}" class="view-all">
+            <a href="?page={{ books.previous_page_number }}" class="view-all">
                 <span>&laquo;</span>
                 previous page
             </a>

@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 
 
 
-def book_list(request, page=1):
+def book_list(request):
     """
     Display a pagianted list of book.
     
@@ -18,6 +18,7 @@ def book_list(request, page=1):
     
     books_list = Book.objects.all()
     paginator = Paginator(books_list, 4)
+    page = request.GET.get("page", 1)
     books = paginator.get_page(page)
 
     context = {
