@@ -43,7 +43,7 @@ def reminder_detail(request, pk):
     Returns:
         HttpRespones: The rendered user reminder datails page.
     """
-    reminder = get_object_or_404(Reminder, pk=pk)
+    reminder = get_object_or_404(Reminder, pk=pk, loan__user=request.user)
     
     reminder.is_read = True
     reminder.save(update_fields=["is_read"])
