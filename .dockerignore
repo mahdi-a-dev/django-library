@@ -1,0 +1,10 @@
+data/db.sqlite3
+.venv
+.env
+env
+.vscode
+venv
+.git
+.gitignore
+__pycache__
+*.pyc
