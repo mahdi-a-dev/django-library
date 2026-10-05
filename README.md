@@ -20,6 +20,47 @@ for borrowed, upcoming, overdue, and returned book.
 
 To run the reminder service manually:
 
-`python manage.py generate_reminders`
+```bash
+python manage.py generate_reminders
+```
 
 For automatic execution, the command can be scheduled using cron on linux or Task Scheduler on Windows.
+
+## Docker
+
+### 1.Create `.env`
+
+Copy `.env.example` to `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Then set your own Django secret key in `.env`:
+
+```env
+DJANGO_SECRET_KEY=your-secret-key
+DEBUG=1
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+### 2.Build and run
+
+```bash
+docker compose up --build
+```
+
+Open:
+http://localhost:8000
+
+### Django commands
+
+```bash
+docker compose exec backend python manage.py migrate
+docker compose exec backend python manage.py createsuperuser
+```
+
+### Stop
+```bash
+docker compose down
+```
