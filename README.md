@@ -30,6 +30,12 @@ For automatic execution, the command can be scheduled using cron on linux or Tas
 
 ### 1.Create `.env`
 
+Copy `.env.example` to `.env`:
+
+```bash
+cp .env.example .env
+```
+
 Then set your own Django secret key in `.env`:
 
 ```env
